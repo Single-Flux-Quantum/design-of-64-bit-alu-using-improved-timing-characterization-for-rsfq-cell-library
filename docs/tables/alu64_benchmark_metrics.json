@@ -1,0 +1,160 @@
+{
+  "paper_reference": {
+    "title": "Design of 64-Bit Arithmetic Logic Unit Using Improved Timing Characterization Methodology for RSFQ Cell Library",
+    "authors": "Amol Inamdar, Jushya Ravi, Stephen Miller, Sukanya S. Meher, M. Eren Celik, Deepnarayan Gupta",
+    "affiliation": "HYPRES, Inc., Elmsford, NY, USA",
+    "journal": "IEEE Transactions on Applied Superconductivity",
+    "volume": 31,
+    "issue": 5,
+    "art_no": "1301307",
+    "date": "August 2021",
+    "doi": "10.1109/TASC.2021.3061639"
+  },
+  "hardware_metrics": {
+    "8_bit_alu_prototype": {
+      "junction_count": 6882,
+      "bias_current_A": 0.93,
+      "area_mm2": 4.68,
+      "latency_ps": 362.0,
+      "architecture": "Asynchronous wave-pipelined Kogge-Stone"
+    },
+    "64_bit_alu_scaled": {
+      "junction_count": 90256,
+      "stages": [
+        "INIT",
+        "STR & REG (6 KSA levels)",
+        "SUM"
+      ],
+      "supported_operations": [
+        "ADD",
+        "SUB",
+        "AND",
+        "OR",
+        "XOR",
+        "NOT"
+      ],
+      "architecture": "Wave-pipelined Kogge-Stone Adder"
+    },
+    "process_technology": "MIT Lincoln Laboratory SFQ5ee 10 kA/cm\u00b2 (8 Nb layers, 250 nm sub-micron JJs)"
+  },
+  "fig12_multi_corner_clock_frequency_and_latency": {
+    "Joint_Load": {
+      "FastFast": {
+        "clock_period_ps": 30.0,
+        "latency_ps": 477.0,
+        "freq_ghz": 33.33,
+        "status": "PASS"
+      },
+      "XI_1.25": {
+        "clock_period_ps": 32.0,
+        "latency_ps": 474.0,
+        "freq_ghz": 31.25,
+        "status": "PASS"
+      },
+      "Nominal": {
+        "clock_period_ps": 40.0,
+        "latency_ps": 634.0,
+        "freq_ghz": 25.0,
+        "status": "PASS"
+      },
+      "SlowSlow": {
+        "clock_period_ps": 60.0,
+        "latency_ps": 914.0,
+        "freq_ghz": 16.67,
+        "status": "PASS"
+      },
+      "XI_0.75": {
+        "clock_period_ps": 60.0,
+        "latency_ps": 936.0,
+        "freq_ghz": 16.67,
+        "status": "PASS"
+      }
+    },
+    "Independent_Load": {
+      "FastFast": {
+        "clock_period_ps": 30.0,
+        "latency_ps": 477.0,
+        "freq_ghz": 33.33,
+        "status": "PASS"
+      },
+      "XI_1.25": {
+        "clock_period_ps": 32.0,
+        "latency_ps": 473.0,
+        "freq_ghz": 31.25,
+        "status": "PASS"
+      },
+      "Nominal": {
+        "clock_period_ps": 40.0,
+        "latency_ps": 634.0,
+        "freq_ghz": 25.0,
+        "status": "PASS"
+      },
+      "SlowSlow": {
+        "clock_period_ps": 60.0,
+        "latency_ps": 914.0,
+        "freq_ghz": 16.67,
+        "status": "PASS"
+      },
+      "XI_0.75": {
+        "clock_period_ps": 60.0,
+        "latency_ps": 936.0,
+        "freq_ghz": 16.67,
+        "status": "PASS"
+      }
+    },
+    "Standard_Load": {
+      "FastFast": {
+        "clock_period_ps": null,
+        "latency_ps": 460.0,
+        "freq_ghz": null,
+        "status": "FAIL"
+      },
+      "XI_1.25": {
+        "clock_period_ps": null,
+        "latency_ps": 460.0,
+        "freq_ghz": null,
+        "status": "FAIL"
+      },
+      "Nominal": {
+        "clock_period_ps": 36.0,
+        "latency_ps": 608.0,
+        "freq_ghz": 27.78,
+        "status": "PASS"
+      },
+      "SlowSlow": {
+        "clock_period_ps": null,
+        "latency_ps": 866.0,
+        "freq_ghz": null,
+        "status": "FAIL"
+      },
+      "XI_0.75": {
+        "clock_period_ps": null,
+        "latency_ps": 883.0,
+        "freq_ghz": null,
+        "status": "FAIL"
+      }
+    }
+  },
+  "spice_vs_verilog_accuracy_fig6": {
+    "nominal_corner": {
+      "max_diff_ps": 0.245,
+      "stages": 25,
+      "verdict": "PASS"
+    },
+    "slowslow_corner": {
+      "max_diff_ps": 1.17,
+      "stages": 30,
+      "verdict": "PASS"
+    }
+  },
+  "independent_load_decomposition": {
+    "formula": "Delay = a - b - c",
+    "error_percentage": "< 1.5% for >90% of cells",
+    "simulation_reduction_factor": "Reduced from i*j*k permutations to j+k runs (~10x to 15x reduction)"
+  },
+  "state_dependent_correction": {
+    "storage_loop_state_delay_difference_ps": 1.2,
+    "hold_time_correction": "max(0, t_non_out - t_out)",
+    "setup_time_correction": "max(0, t_out - t_non_out)"
+  }
+}

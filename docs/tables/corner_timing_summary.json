@@ -1,0 +1,49 @@
+{
+  "corners": [
+    {
+      "corner": "FastFast",
+      "xi": 1.07,
+      "xj": 0.93,
+      "clock_ps": 30.0,
+      "freq_ghz": 33.33,
+      "latency_ps": 477.0,
+      "std_load": "FAIL"
+    },
+    {
+      "corner": "XI_1.25",
+      "xi": 1.25,
+      "xj": 1.0,
+      "clock_ps": 32.0,
+      "freq_ghz": 31.25,
+      "latency_ps": 474.0,
+      "std_load": "FAIL"
+    },
+    {
+      "corner": "Nominal",
+      "xi": 1.0,
+      "xj": 1.0,
+      "clock_ps": 40.0,
+      "freq_ghz": 25.0,
+      "latency_ps": 634.0,
+      "std_load": "PASS (36 ps)"
+    },
+    {
+      "corner": "SlowSlow",
+      "xi": 0.93,
+      "xj": 1.07,
+      "clock_ps": 60.0,
+      "freq_ghz": 16.67,
+      "latency_ps": 914.0,
+      "std_load": "FAIL"
+    },
+    {
+      "corner": "XI_0.75",
+      "xi": 0.75,
+      "xj": 1.0,
+      "clock_ps": 60.0,
+      "freq_ghz": 16.67,
+      "latency_ps": 936.0,
+      "std_load": "FAIL"
+    }
+  ]
+}

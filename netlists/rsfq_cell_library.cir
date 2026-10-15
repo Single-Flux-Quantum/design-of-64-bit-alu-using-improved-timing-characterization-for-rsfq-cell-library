@@ -1,0 +1,82 @@
+* SPICE Circuit Deck for MIT-LL SFQ5ee RSFQ Cell Library & Timing Characterization
+* Reference: Inamdar et al., IEEE Trans. Appl. Supercond., Vol. 31, No. 5, August 2021
+* Process: MIT-LL SFQ5ee 10 kA/cm2 Nb Trilayer
+
+.param PHI0 = 2.067833848e-15
+.param IC0  = 100u
+.param RN0  = 2.068
+.param CJ0  = 0.25p
+
+* Process Corner Parameters: XI (bias), XJ (critical current)
+.param XI = 1.00
+.param XJ = 1.00
+
+* Scaled parameters
+.param IC_EFF = 'IC0 * XJ'
+.param RN_EFF = 'RN0 / XJ'
+.param CJ_EFF = 'CJ0 * XJ'
+.param IB_EFF = '0.75 * IC0 * XI'
+
+* Subcircuit: Single Josephson Junction with Stewart-McCumber Shunt
+.subckt JJ_SFQ5EE n_plus n_minus
+B1 n_plus n_minus JJMOD
+R1 n_plus n_minus 'RN_EFF'
+C1 n_plus n_minus 'CJ_EFF'
+.ends
+
+* Subcircuit: 2-Junction Josephson Transmission Line (jt2_00a - Standard Reference Load)
+.subckt JT2_00A in out gnd
+L1 in n1 2.0p
+XJ1 n1 gnd JJ_SFQ5EE
+IB1 gnd n1 'IB_EFF'
+L2 n1 n2 2.5p
+XJ2 n2 gnd JJ_SFQ5EE
+IB2 gnd n2 'IB_EFF'
+L3 n2 out 2.0p
+.ends
+
+* Subcircuit: D-Flip-Flop Cell (dff_00a) with Quantizing Storage Loop
+.subckt DFF_00A din clk q gnd
+* Data Input Stage
+L_din din n_d 2.2p
+XJ_in n_d gnd JJ_SFQ5EE
+IB_in gnd n_d 'IB_EFF'
+
+* Quantizing Storage Loop (L_loop ~ 4.2 pH)
+L_loop n_d n_q 4.2p
+
+* Clock & Readout Stage
+L_clk clk n_c 2.0p
+XJ_clk n_c gnd JJ_SFQ5EE
+IB_clk gnd n_c 'IB_EFF'
+
+L_read n_c n_q 2.0p
+XJ_out n_q gnd JJ_SFQ5EE
+IB_out gnd n_q 'IB_EFF'
+L_out n_q q 2.0p
+.ends
+
+* Subcircuit: Splitter Cell (s22a_00a)
+.subckt S22A_00A in out1 out2 gnd
+L_in in n_split 2.0p
+XJ_split n_split gnd JJ_SFQ5EE
+IB_split gnd n_split '1.2 * IB_EFF'
+L_out1 n_split out1 2.5p
+L_out2 n_split out2 2.5p
+.ends
+
+* Subcircuit: Inverter / NOT Cell (not_00c)
+.subckt NOT_00C in clk out gnd
+L_in in n_in 2.2p
+XJ_in n_in gnd JJ_SFQ5EE
+IB_in gnd n_in 'IB_EFF'
+L_inv n_in n_store 4.5p
+L_clk clk n_clk 2.0p
+XJ_clk n_clk gnd JJ_SFQ5EE
+IB_clk gnd n_clk 'IB_EFF'
+L_out n_store out 2.0p
+XJ_out out gnd JJ_SFQ5EE
+.ends
+
+* End of Netlist
+.end
